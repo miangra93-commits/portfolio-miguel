@@ -1,4 +1,4 @@
-// js/language.js - Sistema de idiomas INDEPENDIENTE
+// js/language.js - Sistema de idiomas SUPER AGRESIVO
 
 const translations = {
     es: {
@@ -69,89 +69,208 @@ const translations = {
     }
 };
 
-// Sistema simple y directo
-function initLanguageSystem() {
-    let currentLang = localStorage.getItem('portfolio-language') || 'es';
+// Sistema ULTRA AGRESIVO - se ejecuta inmediatamente
+(function() {
+    'use strict';
     
-    function applyLanguage(lang) {
+    console.log('🚀 INICIANDO SISTEMA DE IDIOMAS - MODO AGRESIVO');
+    
+    // Obtener idioma actual
+    let currentLang = localStorage.getItem('portfolio-language') || 'es';
+    console.log('🌐 Idioma detectado:', currentLang);
+    
+    // Aplicar idioma INMEDIATAMENTE
+    applyLanguage(currentLang);
+    
+    // Configurar event listeners de manera SUPER AGRESIVA
+    function setupEventListeners() {
+        console.log('🖱️ Configurando event listeners...');
+        
+        // Método 1: Event delegation en TODO el documento
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('lang-btn')) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('🎯 Botón de idioma clickeado:', e.target.id);
+                
+                const lang = e.target.id === 'lang-es' ? 'es' : 'en';
+                changeLanguage(lang);
+            }
+        });
+        
+        // Método 2: Event listeners DIRECTOS en cada botón
+        setTimeout(() => {
+            const buttons = document.querySelectorAll('.lang-btn');
+            console.log('🔍 Encontrados', buttons.length, 'botones de idioma');
+            
+            buttons.forEach(button => {
+                // Remover cualquier event listener existente
+                const newButton = button.cloneNode(true);
+                button.parentNode.replaceChild(newButton, button);
+                
+                // Agregar nuevo event listener
+                newButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('🎯 Click DIRECTO en botón:', this.id);
+                    
+                    const lang = this.id === 'lang-es' ? 'es' : 'en';
+                    changeLanguage(lang);
+                });
+            });
+        }, 100);
+        
+        // Método 3: También agregar onclick por si acaso
+        setTimeout(() => {
+            document.querySelectorAll('.lang-btn').forEach(button => {
+                button.setAttribute('onclick', `window.changeLanguage('${button.id === 'lang-es' ? 'es' : 'en'}')`);
+            });
+        }, 200);
+    }
+    
+    // Función para cambiar idioma
+    window.changeLanguage = function(lang) {
+        console.log('🔄 Cambiando idioma a:', lang);
         currentLang = lang;
         localStorage.setItem('portfolio-language', lang);
+        applyLanguage(lang);
+        
+        // Forzar re-render si es necesario
+        setTimeout(() => {
+            applyLanguage(lang);
+        }, 50);
+    };
+    
+    // Función para aplicar el idioma
+    function applyLanguage(lang) {
         const t = translations[lang];
-        if (!t) return;
-        
-        // Navegación
-        document.querySelectorAll('a[href="index.html"]').forEach(el => el.textContent = t.navHome);
-        document.querySelectorAll('a[href="about.html"]').forEach(el => el.textContent = t.navAbout);
-        document.querySelectorAll('a[href="skills.html"]').forEach(el => el.textContent = t.navSkills);
-        document.querySelectorAll('a[href="education.html"]').forEach(el => el.textContent = t.navEducation);
-        document.querySelectorAll('a[href="projects.html"]').forEach(el => el.textContent = t.navProjects);
-        
-        // Footer
-        document.querySelectorAll('.footer-contact h4').forEach(el => el.textContent = t.contact);
-        document.querySelectorAll('.footer-links h4').forEach(el => el.textContent = t.quickLinks);
-        document.querySelectorAll('.footer-links a[href="index.html"]').forEach(el => el.textContent = t.homeLink);
-        document.querySelectorAll('.footer-links a[href="projects.html"]').forEach(el => el.textContent = t.projectsLink);
-        document.querySelectorAll('.footer-links a[href="about.html"]').forEach(el => el.textContent = t.aboutLink);
-        document.querySelectorAll('.footer-bottom p').forEach(el => el.innerHTML = `&copy; 2024 Miguel Angel Gracia. ${t.rights}.`);
-        
-        // Contenido específico de página
-        const page = window.location.pathname.split('/').pop() || 'index.html';
-        
-        // Títulos de página
-        document.querySelectorAll('.page-title').forEach(el => {
-            if (page === 'about.html') el.textContent = t.aboutTitle;
-            if (page === 'skills.html') el.textContent = t.skillsTitle;
-            if (page === 'education.html') el.textContent = t.educationTitle;
-            if (page === 'projects.html') el.textContent = t.projectsTitle;
-            if (page === 'contact.html') el.textContent = t.contactTitle;
-        });
-        
-        // Subtítulos
-        document.querySelectorAll('.page-subtitle').forEach(el => {
-            if (page === 'projects.html') el.textContent = t.projectsSubtitle;
-            if (page === 'contact.html') el.textContent = t.contactSubtitle;
-        });
-        
-        // Página principal
-        if (page === 'index.html') {
-            document.querySelectorAll('.hero-title').forEach(el => el.innerHTML = t.heroTitle);
-            document.querySelectorAll('.hero-subtitle').forEach(el => el.textContent = t.heroSubtitle);
-            document.querySelectorAll('.hero-description').forEach(el => el.textContent = t.heroDescription);
-            document.querySelectorAll('.hero-buttons a[href="projects.html"]').forEach(el => el.textContent = t.btnProjects);
-            document.querySelectorAll('.hero-buttons a[href="about.html"]').forEach(el => el.textContent = t.btnAbout);
-            document.querySelectorAll('.info-card:nth-child(1) h3').forEach(el => el.textContent = t.location);
-            document.querySelectorAll('.info-card:nth-child(2) h3').forEach(el => el.textContent = t.education);
-            document.querySelectorAll('.info-card:nth-child(3) h3').forEach(el => el.textContent = t.experience);
-            document.querySelectorAll('.info-card:nth-child(4) h3').forEach(el => el.textContent = t.available);
-            document.querySelectorAll('.info-card:nth-child(1) p').forEach(el => el.textContent = t.locationText);
-            document.querySelectorAll('.info-card:nth-child(2) p').forEach(el => el.textContent = t.educationText);
-            document.querySelectorAll('.info-card:nth-child(3) p').forEach(el => el.textContent = t.experienceText);
-            document.querySelectorAll('.info-card:nth-child(4) p').forEach(el => el.textContent = t.availableText);
+        if (!t) {
+            console.error('❌ No hay traducciones para:', lang);
+            return;
         }
         
-        // Botones activos
-        document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.id === `lang-${lang}`) btn.classList.add('active');
+        console.log('🎨 Aplicando traducciones para:', lang);
+        
+        // 1. ACTUALIZAR NAVEGACIÓN (muy importante)
+        updateElements('a[href="index.html"]', t.navHome);
+        updateElements('a[href="about.html"]', t.navAbout);
+        updateElements('a[href="skills.html"]', t.navSkills);
+        updateElements('a[href="education.html"]', t.navEducation);
+        updateElements('a[href="projects.html"]', t.navProjects);
+        
+        // 2. ACTUALIZAR FOOTER
+        updateElements('.footer-contact h4', t.contact);
+        updateElements('.footer-links h4', t.quickLinks);
+        updateElements('.footer-links a[href="index.html"]', t.homeLink);
+        updateElements('.footer-links a[href="projects.html"]', t.projectsLink);
+        updateElements('.footer-links a[href="about.html"]', t.aboutLink);
+        updateElements('.footer-bottom p', `&copy; 2024 Miguel Angel Gracia. ${t.rights}.`, true);
+        
+        // 3. ACTUALIZAR CONTENIDO ESPECÍFICO DE PÁGINA
+        const page = getCurrentPage();
+        console.log('📄 Página actual:', page);
+        
+        updatePageContent(page, t);
+        
+        // 4. ACTUALIZAR BOTONES ACTIVOS
+        updateLanguageButtons(lang);
+        
+        console.log('✅ Idioma aplicado exitosamente:', lang);
+    }
+    
+    // Función para obtener página actual
+    function getCurrentPage() {
+        const path = window.location.pathname;
+        const page = path.split('/').pop() || 'index.html';
+        return page.replace('.html', '');
+    }
+    
+    // Función para actualizar contenido de página específica
+    function updatePageContent(page, t) {
+        switch(page) {
+            case 'index':
+                updateIndexContent(t);
+                break;
+            case 'about':
+                updateElements('.page-title', t.aboutTitle);
+                break;
+            case 'skills':
+                updateElements('.page-title', t.skillsTitle);
+                break;
+            case 'education':
+                updateElements('.page-title', t.educationTitle);
+                break;
+            case 'projects':
+                updateElements('.page-title', t.projectsTitle);
+                updateElements('.page-subtitle', t.projectsSubtitle);
+                break;
+            case 'contact':
+                updateElements('.page-title', t.contactTitle);
+                updateElements('.page-subtitle', t.contactSubtitle);
+                break;
+            case 'calculadora':
+                // La calculadora no necesita traducciones de contenido
+                break;
+        }
+        
+        // Contenido de index.html
+        if (page === 'index') {
+            updateIndexContent(t);
+        }
+    }
+    
+    // Contenido específico de index.html
+    function updateIndexContent(t) {
+        updateElements('.hero-title', t.heroTitle, true);
+        updateElements('.hero-subtitle', t.heroSubtitle);
+        updateElements('.hero-description', t.heroDescription);
+        updateElements('.hero-buttons a[href="projects.html"]', t.btnProjects);
+        updateElements('.hero-buttons a[href="about.html"]', t.btnAbout);
+        updateElements('.info-card:nth-child(1) h3', t.location);
+        updateElements('.info-card:nth-child(2) h3', t.education);
+        updateElements('.info-card:nth-child(3) h3', t.experience);
+        updateElements('.info-card:nth-child(4) h3', t.available);
+        updateElements('.info-card:nth-child(1) p', t.locationText);
+        updateElements('.info-card:nth-child(2) p', t.educationText);
+        updateElements('.info-card:nth-child(3) p', t.experienceText);
+        updateElements('.info-card:nth-child(4) p', t.availableText);
+    }
+    
+    // Función helper para actualizar elementos
+    function updateElements(selector, text, isHTML = false) {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(element => {
+            if (isHTML) {
+                element.innerHTML = text;
+            } else {
+                element.textContent = text;
+            }
         });
     }
     
-    // Event listeners simples
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('lang-btn')) {
-            e.preventDefault();
-            const lang = e.target.id === 'lang-es' ? 'es' : 'en';
-            applyLanguage(lang);
-        }
+    // Actualizar botones de idioma activos
+    function updateLanguageButtons(lang) {
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.id === `lang-${lang}`) {
+                btn.classList.add('active');
+            }
+        });
+    }
+    
+    // INICIALIZAR TODO
+    setTimeout(() => {
+        setupEventListeners();
+        // Re-aplicar idioma por si acaso
+        applyLanguage(currentLang);
+    }, 100);
+    
+    // También aplicar cuando la página termine de cargar
+    window.addEventListener('load', function() {
+        console.log('🏁 Página completamente cargada, re-aplicando idioma...');
+        applyLanguage(currentLang);
+        setupEventListeners();
     });
     
-    // Aplicar idioma inicial
-    applyLanguage(currentLang);
-}
-
-// Inicializar cuando el DOM esté listo
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLanguageSystem);
-} else {
-    initLanguageSystem();
-}
+    console.log('🎉 Sistema de idiomas configurado');
+})();
