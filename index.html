@@ -118,23 +118,9 @@
             </div>
         </div>
     </footer>
-
-    <script src="js/translations.js"></script>
     <script src="js/script.js"></script>
-
-     <script>
-        console.log('=== DIAGNÓSTICO IDIOMAS ===');
-        console.log('1. Translations cargado:', typeof translations !== 'undefined');
-        console.log('2. changeLanguage función:', typeof changeLanguage !== 'undefined');
-        console.log('3. Idioma guardado:', localStorage.getItem('language'));
-        console.log('4. Botones encontrados:', document.querySelectorAll('.lang-btn').length);
-        
-        // Verificar que los botones tengan event listeners
-        document.querySelectorAll('.lang-btn').forEach((btn, index) => {
-            console.log(`Botón ${index + 1} (${btn.id}):`, btn);
-        });
-    </script>
 </body>
 
 </html>
+
 
