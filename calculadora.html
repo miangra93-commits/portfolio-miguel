@@ -470,11 +470,171 @@
                 this.classList.add('active');
             });
         });
-        <script src="js/language.js"></script>
+<script src="js/language.js"></script>
+    
+    <!-- JavaScript ESPECÍFICO de la calculadora -->
+    <script>
+        // Código JavaScript de la calculadora
+        const display = document.getElementById('display');
+        let currentInput = '';
+        let shouldResetDisplay = false;
+
+        function appendToDisplay(value) {
+            if (shouldResetDisplay) {
+                display.value = '';
+                shouldResetDisplay = false;
+            }
+            
+            if (display.value === '0' && value !== '.') {
+                display.value = '';
+            }
+            
+            // Evitar múltiples puntos decimales
+            if (value === '.' && display.value.includes('.')) {
+                return;
+            }
+            
+            // Evitar múltiples operadores consecutivos
+            const lastChar = display.value.slice(-1);
+            const operators = ['+', '-', '*', '/'];
+            if (operators.includes(value) && operators.includes(lastChar)) {
+                display.value = display.value.slice(0, -1) + value;
+                return;
+            }
+            
+            display.value += value;
+            currentInput = display.value;
+        }
+
+        function clearDisplay() {
+            display.value = '0';
+            currentInput = '';
+        }
+
+        function clearEntry() {
+            display.value = '0';
+            currentInput = '';
+        }
+
+        function deleteLast() {
+            if (display.value.length > 1) {
+                display.value = display.value.slice(0, -1);
+            } else {
+                display.value = '0';
+            }
+            currentInput = display.value;
+        }
+
+        function calculate() {
+            try {
+                if (display.value === '' || display.value === '0') return;
+                
+                let expression = display.value.replace(/×/g, '*');
+                
+                // Validar expresión
+                if (!isValidExpression(expression)) {
+                    display.value = 'Error';
+                    return;
+                }
+                
+                const result = eval(expression);
+                
+                // Manejar división por cero
+                if (!isFinite(result)) {
+                    display.value = 'Error';
+                    return;
+                }
+                
+                // Redondear a 10 decimales para evitar floating point issues
+                display.value = Math.round(result * 10000000000) / 10000000000;
+                currentInput = display.value.toString();
+                shouldResetDisplay = true;
+                
+            } catch (error) {
+                display.value = 'Error';
+            }
+        }
+
+        function isValidExpression(expr) {
+            // Validar que la expresión no termine con operador
+            const operators = ['+', '-', '*', '/'];
+            const lastChar = expr.slice(-1);
+            if (operators.includes(lastChar)) {
+                return false;
+            }
+            
+            // Validar caracteres permitidos
+            const validChars = /^[0-9+\-*/.() ]+$/;
+            return validChars.test(expr);
+        }
+
+        // Soporte para teclado
+        document.addEventListener('keydown', function(event) {
+            const key = event.key;
+            
+            if (key >= '0' && key <= '9') {
+                appendToDisplay(key);
+            } else if (key === '.') {
+                appendToDisplay('.');
+            } else if (key === '+') {
+                appendToDisplay('+');
+            } else if (key === '-') {
+                appendToDisplay('-');
+            } else if (key === '*') {
+                appendToDisplay('*');
+            } else if (key === '/') {
+                event.preventDefault();
+                appendToDisplay('/');
+            } else if (key === 'Enter' || key === '=') {
+                event.preventDefault();
+                calculate();
+            } else if (key === 'Escape' || key === 'Delete') {
+                clearDisplay();
+            } else if (key === 'Backspace') {
+                deleteLast();
+            }
+        });
+
+        // Efectos visuales en botones
+        document.querySelectorAll('.calc-btn').forEach(button => {
+            button.addEventListener('mousedown', function() {
+                this.style.transform = 'scale(0.95)';
+            });
+            
+            button.addEventListener('mouseup', function() {
+                this.style.transform = '';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
+        });
+
+        // Resaltar operador activo
+        document.querySelectorAll('.operator').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.operator').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        console.log('🧮 Calculadora cargada correctamente');
+    </script>
+
+<script>
+    console.log('=== DIAGNÓSTICO CALCULADORA ===');
+    console.log('Display encontrado:', document.getElementById('display'));
+    console.log('Botones encontrados:', document.querySelectorAll('.calc-btn').length);
+    console.log('appendToDisplay function:', typeof appendToDisplay);
+    console.log('calculate function:', typeof calculate);
+</script>
     
 </body>
 
 </html>
+
 
 
 
