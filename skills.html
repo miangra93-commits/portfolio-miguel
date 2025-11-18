@@ -154,21 +154,11 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
-
-    <script>
-    console.log('=== DIAGNÓSTICO ===');
-    console.log('Página:', window.location.pathname);
-    console.log('Idioma guardado:', localStorage.getItem('portfolio-language'));
-    console.log('Botones encontrados:', document.querySelectorAll('.lang-btn').length);
-    
-    // Verificar que los botones tengan los event listeners correctos
-    document.querySelectorAll('.lang-btn').forEach((btn, index) => {
-        console.log(`Botón ${index + 1}:`, btn.id, btn.classList.toString());
-    });
-</script>
+<script src="js/language.js"></script>
+<script src="js/script.js"></script>
 </body>
 
 </html>
+
 
 
