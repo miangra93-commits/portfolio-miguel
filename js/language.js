@@ -12,7 +12,7 @@ const translations = {
         // Página principal
         heroTitle: "Hola, soy <span class='highlight'>Miguel Angel Gracia</span>",
         heroSubtitle: "Estudiante de Ingeniería de Software & Apasionado por la Tecnología",
-        heroDescription: "Persona apasionada por aprender y mejorar cada día. Actualmente trabajando en automatización de procesos mientras completo mis estudios universitarios.",
+        heroDescription: "apasionado por aprender y mejorar cada día. Actualmente trabajando en automatización de procesos mientras completo mis estudios universitarios.",
         btnProjects: "Ver Mis Proyectos",
         btnAbout: "Conóceme Más",
         
@@ -84,7 +84,7 @@ const translations = {
     }
 };
 
-// Sistema de traducción INTELIGENTE
+// traducción 
 document.addEventListener('DOMContentLoaded', function() {
     let currentLang = localStorage.getItem('portfolio-language') || 'es';
     
@@ -129,14 +129,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function applyBasicTranslations(t) {
-        // Navegación (CRÍTICO - siempre debe funcionar)
+        // Navegación 
         safeUpdate('a[href="index.html"]', t.navHome);
         safeUpdate('a[href="about.html"]', t.navAbout);
         safeUpdate('a[href="skills.html"]', t.navSkills);
         safeUpdate('a[href="education.html"]', t.navEducation);
         safeUpdate('a[href="projects.html"]', t.navProjects);
         
-        // Footer (CRÍTICO - siempre debe funcionar)
+        // Footer 
         safeUpdate('.footer-contact h4', t.contact);
         safeUpdate('.footer-links h4', t.quickLinks);
         safeUpdate('.footer-links a[href="index.html"]', t.homeLink);
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
         safeUpdate('.hero-buttons a[href="projects.html"]', t.btnProjects);
         safeUpdate('.hero-buttons a[href="about.html"]', t.btnAbout);
         
-        // Info cards - intentar diferentes selectores
+        // Info cards 
         safeUpdate('.info-card:nth-child(1) h3', t.location);
         safeUpdate('.info-card:nth-child(2) h3', t.education);
         safeUpdate('.info-card:nth-child(3) h3', t.experience);
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function applyAboutTranslations(t) {
-        // Buscar cualquier h2 y p en las secciones de texto
+    
         const sections = document.querySelectorAll('.text-section, .about-text, section');
         sections.forEach((section, index) => {
             const h2 = section.querySelector('h2');
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Títulos de secciones
         safeUpdate('h2', t.technicalSkills, false, true); // Primer h2
         
-        // Habilidades blandas - buscar cualquier elemento que parezca skill
+
         const skillItems = document.querySelectorAll('.soft-skill-item, .skill-item, [class*="skill"]');
         skillItems.forEach((item, index) => {
             const h4 = item.querySelector('h4');
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
         safeUpdate('.social-links h3', t.followMe);
     }
     
-    // Función SEGURA para actualizar elementos
+    // Función para actualizar elementos
     function safeUpdate(selectorOrElement, text, isHTML = false, firstOnly = false) {
         try {
             let elements;
@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Event listeners ROBUSTOS
+    // Event listeners 
     function setupEventListeners() {
         // Método 1: Event delegation
         document.addEventListener('click', function(e) {
