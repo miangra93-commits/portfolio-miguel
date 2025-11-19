@@ -1,5 +1,3 @@
-// js/language.js - Sistema de traducción INTELIGENTE
-
 const translations = {
     es: {
         // Navegación
@@ -144,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
         safeUpdate('.footer-links a[href="about.html"]', t.aboutLink);
         safeUpdate('.footer-bottom p', `&copy; 2024 Miguel Angel Gracia. ${t.rights}.`, true);
         
-        // Títulos de página (CRÍTICO - siempre debe funcionar)
+        // Títulos de página 
         safeUpdate('.page-title', getPageTitle(t));
     }
     
