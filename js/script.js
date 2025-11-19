@@ -1,4 +1,3 @@
-// js/script.js - Código original (barras de habilidades, formulario, etc.)
 
 document.addEventListener('DOMContentLoaded', function() {
     // Barras de habilidades
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Smooth scroll para enlaces internos
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -46,3 +45,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
