@@ -117,7 +117,7 @@
             background: #6a6d77;
         }
 
-        /* Botones naranja (operadores) */
+
         .operator {
             background: #ff9500;
             color: #ffffff;
@@ -133,7 +133,7 @@
             color: #ff9500;
         }
 
-        /* Botones oscuros (números) */
+        /* Botones  */
         .number {
             background: #3a3d47;
             color: #ffffff;
@@ -144,7 +144,7 @@
             background: #4a4d57;
         }
 
-        /* Botón cero (más ancho) */
+        /* Botón cero  */
         .zero {
             grid-column: span 2;
         }
@@ -261,8 +261,7 @@
                     <button class="calc-btn number" onclick="appendToDisplay('2')">2</button>
                     <button class="calc-btn number" onclick="appendToDisplay('3')">3</button>
                     <button class="calc-btn operator equals" onclick="calculate()" style="grid-row: span 2;">=</button>
-                    
-                    <!-- Fila 5 -->
+
                     <button class="calc-btn number zero" onclick="appendToDisplay('0')">0</button>
                     <button class="calc-btn number" onclick="appendToDisplay('.')">.</button>
                 </div>
@@ -396,7 +395,7 @@
                     return;
                 }
                 
-                // Redondear a 10 decimales para evitar floating point issues
+
                 display.value = Math.round(result * 10000000000) / 10000000000;
                 currentInput = display.value.toString();
                 shouldResetDisplay = true;
@@ -407,14 +406,14 @@
         }
 
         function isValidExpression(expr) {
-            // Validar que la expresión no termine con operador
+
             const operators = ['+', '-', '*', '/'];
             const lastChar = expr.slice(-1);
             if (operators.includes(lastChar)) {
                 return false;
             }
             
-            // Validar caracteres permitidos
+
             const validChars = /^[0-9+\-*/.() ]+$/;
             return validChars.test(expr);
         }
@@ -472,7 +471,7 @@
         });
 <script src="js/language.js"></script>
     
-    <!-- JavaScript ESPECÍFICO de la calculadora -->
+
     <script>
         // Código JavaScript de la calculadora
         const display = document.getElementById('display');
@@ -494,7 +493,7 @@
                 return;
             }
             
-            // Evitar múltiples operadores consecutivos
+
             const lastChar = display.value.slice(-1);
             const operators = ['+', '-', '*', '/'];
             if (operators.includes(value) && operators.includes(lastChar)) {
@@ -545,7 +544,7 @@
                     return;
                 }
                 
-                // Redondear a 10 decimales para evitar floating point issues
+
                 display.value = Math.round(result * 10000000000) / 10000000000;
                 currentInput = display.value.toString();
                 shouldResetDisplay = true;
@@ -556,14 +555,14 @@
         }
 
         function isValidExpression(expr) {
-            // Validar que la expresión no termine con operador
+
             const operators = ['+', '-', '*', '/'];
             const lastChar = expr.slice(-1);
             if (operators.includes(lastChar)) {
                 return false;
             }
             
-            // Validar caracteres permitidos
+
             const validChars = /^[0-9+\-*/.() ]+$/;
             return validChars.test(expr);
         }
@@ -595,7 +594,7 @@
             }
         });
 
-        // Efectos visuales en botones
+
         document.querySelectorAll('.calc-btn').forEach(button => {
             button.addEventListener('mousedown', function() {
                 this.style.transform = 'scale(0.95)';
@@ -610,7 +609,7 @@
             });
         });
 
-        // Resaltar operador activo
+
         document.querySelectorAll('.operator').forEach(button => {
             button.addEventListener('click', function() {
                 document.querySelectorAll('.operator').forEach(btn => {
@@ -634,6 +633,7 @@
 </body>
 
 </html>
+
 
 
 
